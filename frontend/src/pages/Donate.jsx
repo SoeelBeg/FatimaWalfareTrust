@@ -7,7 +7,7 @@ export default function Donate() {
     <div className="bg-gray-50 text-gray-800">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-br  from-blue-600 via-grren-700 to-emerald-500 text-white py-24 md:py-22 overflow-hidden">
+      <section className="relative bg-gradient-to-br  from-blue-600 via-green-700 to-emerald-500 text-white py-24 md:py-22 overflow-hidden">
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>

@@ -18,7 +18,10 @@ export default function Gallery() {
       .then(setImages);
   };
 
-  useEffect(() => loadImages(), []);
+  useEffect(() => {
+    loadImages();
+      console.log("API BASE URL:", API_BASE_URL);
+  }, []);
 
   const filteredImages = activeCategory === "All"
     ? images
@@ -27,7 +30,7 @@ export default function Gallery() {
   return (
     <>
       {/* HERO */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-grren-700 to-emerald-500 text-white py-20 md:py-28 text-center">
+      <section className="relative bg-gradient-to-br from-blue-600 via-green-700 to-emerald-500 text-white py-20 md:py-28 text-center">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -65,21 +68,23 @@ export default function Gallery() {
       {/* GALLERY GRID */}
       <section className="py-14">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredImages.map((img, index) => (
-            <div
-              key={index}
-              onClick={() => setPreview(img)}
-              className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md"
-            >
-              <img src={`${import.meta.env.VITE_API_BASE_URL}${img.src}`} alt={img.title} className="w-full h-60 object-cover group-hover:scale-110 transition duration-500"/>
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-end p-4">
-                <div>
-                  <p className="text-white font-semibold">{img.title}</p>
-                  <p className="text-white/70 text-sm">{img.category}</p>
+          {filteredImages
+            .filter(img => img?.src)
+            .map((img, index) => (
+              <div
+                key={img.name || index}
+                onClick={() => setPreview(img)}
+                className="relative group cursor-pointer rounded-xl overflow-hidden shadow-md"
+              >
+                <img src={`${API_BASE_URL}${img.src}`} alt={img.title} className="w-full h-60 object-cover group-hover:scale-110 transition duration-500" />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-end p-4">
+                  <div>
+                    <p className="text-white font-semibold">{img.title}</p>
+                    <p className="text-white/70 text-sm">{img.category}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </section>
 
@@ -89,7 +94,7 @@ export default function Gallery() {
           <button className="absolute top-5 right-5 text-white" onClick={() => setPreview(null)}>
             <X size={32} />
           </button>
-          <img src={`${import.meta.env.VITE_API_BASE_URL}${preview.src}`} alt={preview.title} className="max-h-[90vh] rounded-xl shadow-xl" onClick={e => e.stopPropagation()}/>
+          <img src={`${API_BASE_URL}${preview.src}`} alt={preview.title} className="max-h-[90vh] rounded-xl shadow-xl" onClick={e => e.stopPropagation()} />
         </div>
       )}
 
@@ -98,11 +103,10 @@ export default function Gallery() {
         <h2 className="text-3xl font-bold mb-4">Want to Visit Our Campus?</h2>
         <p className="text-gray-600 max-w-xl mx-auto mb-8">Contact us to schedule a visit and explore our facilities.</p>
         <Link to="/contact" className="inline-flex items-center gap-2 bg-amber-400 text-white px-8 py-3 rounded-full hover:bg-amber-300 transition">
-          Contact Us <ArrowRight size={18}/>
+          Contact Us <ArrowRight size={18} />
         </Link>
       </section>
     </>
   );
 }
 
-console.log("API BASE URL:", API_BASE_URL);

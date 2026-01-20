@@ -43,7 +43,7 @@ export default function About() {
   return (
     <>
       {/* Hero */}
-      <section className=" relative bg-gradient-to-br from-blue-600 via-grren-700 to-emerald-500 text-white py-20 md:py-12 ">
+      <section className=" relative bg-gradient-to-br from-blue-600 via-green-700 to-emerald-500 text-white py-20 md:py-12 ">
 
         {/* Overlay pattern effect (simple gradient layer) */}
         <div className="absolute inset-0 bg-black/20 "></div>

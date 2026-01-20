@@ -25,6 +25,7 @@ export default function AdminGallery() {
 
     // refresh ke baad admin logout
     useEffect(() => {
+        console.log("API BASE URL:", API_BASE_URL);
         const token = sessionStorage.getItem("adminToken");
         if (token === "ADMIN_LOGGED_IN") {
             setIsAdmin(true);
@@ -55,7 +56,7 @@ export default function AdminGallery() {
         sessionStorage.setItem("adminToken", data.token);
         setIsAdmin(true);
         setPassword("");
-        loadImages(); 
+        loadImages();
     };
 
     // Upload image
@@ -103,12 +104,18 @@ export default function AdminGallery() {
         const token = sessionStorage.getItem("adminToken");
         if (!confirm("Delete permanently?")) return;
 
-        await fetch(`${API_BASE_URL}/api/delete/${name}`, {
+        const res = await fetch(`${API_BASE_URL}/api/delete/${name}`, {
             method: "DELETE",
             headers: { "x-admin-token": token }
         });
 
+        if (!res.ok) {
+            alert("Delete failed");
+            return;
+        }
+
         loadImages();
+
     };
 
     // Login screen
@@ -187,4 +194,3 @@ export default function AdminGallery() {
         </div>
     );
 }
-console.log("API BASE URL:", API_BASE_URL);

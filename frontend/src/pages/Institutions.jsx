@@ -108,7 +108,7 @@ export default function Institutions() {
   return (
     <main className="w-full">
        {/* Hero */}
-        <section className=" relative bg-gradient-to-br from-blue-600 via-grren-700 to-emerald-500 text-white py-20 md:py-10 ">
+        <section className=" relative bg-gradient-to-br from-blue-600 via-green-700 to-emerald-500 text-white py-20 md:py-10 ">
         <motion.div
         initial={{ opacity: 0, }}
         whileInView={{ opacity: 1, x: 0 }}
