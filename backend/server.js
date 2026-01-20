@@ -250,7 +250,6 @@ app.use((err, req, res, next) => {
 // FRONTEND (React build)
 // ======================
 const frontendPath = path.join(__dirname, "../frontend/dist");
-app.use("/api", apiRoutes);
 app.use(express.static(frontendPath));
 
 // React SPA fallback (SAFE)
