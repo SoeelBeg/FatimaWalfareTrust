@@ -55,6 +55,7 @@ export default function AdminGallery() {
         sessionStorage.setItem("adminToken", data.token);
         setIsAdmin(true);
         setPassword("");
+        loadImages(); 
     };
 
     // Upload image
@@ -171,11 +172,12 @@ export default function AdminGallery() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {images.map(img => (
                     <div key={img.name} className="border p-2 rounded relative">
-                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`} className="h-40 w-full object-cover" />
+                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`} loading="lazy"
+                            decoding="async" className="h-40 w-full object-cover" />
                         <p className="font-semibold">{img.title}</p>
                         <p className="text-sm">{img.category}</p>
                         <p className="text-xs text-gray-500">
-                           {new Date(img.createdAt).toLocaleString("en-IN")}
+                            {new Date(img.createdAt).toLocaleString("en-IN")}
                         </p>
 
                         <button onClick={() => deleteImage(img.name)} className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-xs">Delete</button>

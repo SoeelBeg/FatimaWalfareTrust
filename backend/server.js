@@ -36,7 +36,17 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 }
 
 // Static folders
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use(
+  "/uploads",
+  express.static("uploads", {
+    maxAge: "7d",
+    etag: false,
+    setHeaders: (res) => {
+      res.setHeader("Cache-Control", "public, max-age=604800");
+    },
+  })
+);
+
 
 // Data file
 const DATA_FILE = path.join(__dirname, "data/gallery.json");
@@ -183,6 +193,7 @@ app.post("/api/upload", adminCheck, upload.single("image"), (req, res) => {
 
 // Get gallery (public)
 app.get("/api/gallery", (req, res) => {
+   res.setHeader("Cache-Control", "public, max-age=60"); // 1 minute
   let data = [];
   try {
     data = JSON.parse(fs.readFileSync(DATA_FILE));
@@ -190,7 +201,8 @@ app.get("/api/gallery", (req, res) => {
     data = [];
   }
 
-  const last10 = data.slice(-10).reverse();
+  const last10 = [...data].reverse().slice(0, 10);
+
 
   res.json(
     last10.map(img => ({
