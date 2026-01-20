@@ -101,7 +101,7 @@ export default function Home() {
     
       {/* HERO SECTION */}
       <section
-        className="relative bg-gradient-to-br text-white py-20 md:py-28"
+        className="relative bg-gradient-to-br text-white py-20 md:py-20"
         style={{
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",

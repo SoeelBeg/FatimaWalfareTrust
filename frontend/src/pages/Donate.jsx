@@ -80,13 +80,24 @@ export default function Donate() {
                 <p className="text-sm text-gray-500 mb-4">
                   Scan using Google Pay, PhonePe or Paytm
                 </p>
-
+                <div>
                 <img
                   src={QRCODE}
                   alt="UPI QR Code"
                   className="w-65 mx-auto rounded-2xl border shadow-md"
                 />
-
+                {/* Button */}
+                            <a
+                              href={QRCODE}
+                              download
+                              className="mt-4 inline-flex items-center justify-center
+                                         bg-gradient-to-r from-blue-500 to-blue-600
+                                         text-white px-5 py-2 rounded-full
+                                         hover:scale-95 transition  shadow text-sm w-full"
+                            >
+                              Download QR Code
+                            </a>
+</div>
                 <p className="mt-4 text-sm">
                   UPI ID:
                   <span className="block font-semibold">
