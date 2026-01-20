@@ -1,7 +1,8 @@
 # Node modules
 node_modules/
 
-# Env files (secrets)
-.env
+# Local override env (ignore)
 .env.local
+
+# Production secrets (ignore)
 .env.production
