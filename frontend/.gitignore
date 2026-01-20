@@ -1,8 +1,7 @@
 # Node modules
 node_modules/
 
-
+# Env files (secrets)
 .env
 
-# Production secrets (ignore)
 .env.production
