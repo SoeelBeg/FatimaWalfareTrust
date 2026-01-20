@@ -15,7 +15,7 @@ export default function Header() {
             <img
               src={Logo}
               alt="Fatima Welfare Trust Logo"
-              className="h-10 md:h-30 w-auto object-contain cursor-pointer"
+              className="h-23 md:h-30 w-auto object-contain cursor-pointer"
             />
           </Link>
           {/* <span className="text-lg font-semibold text-lime-600">
