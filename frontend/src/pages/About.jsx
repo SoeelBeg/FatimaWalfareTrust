@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Target, Eye, BookOpen, Heart, Users, Lightbulb, Scale } from "lucide-react";
 import { motion } from "framer-motion"
 import founderPortrait from "../assets/logo1.png";
-//     import img1 from "../assets/dev1.png"
-// import img2 from "../assets/about.png"
+import img1 from "../assets/dev1.jpeg"
+import img2 from "../assets/about.jpeg"
 
 const coreValues = [
   {
@@ -210,11 +210,11 @@ export default function About() {
       </section>
 
       {/* Urdu-Style Hindi Text + Images */}
-      {/* <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-6">
 
           {/* Section Heading */}
-          {/* <motion.div
+          <motion.div
             initial={{ opacity: 0,  }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -229,20 +229,20 @@ export default function About() {
               क़ायम करना है जहाँ इल्म के साथ अख़लाक़, किरदार और इंसानियत
               की तरबियत भी की जाए।
             </p>
-          </motion.div>  */}
+          </motion.div> 
 
           {/* Cards */}
-          {/* <div className="grid md:grid-cols-2 gap-10"> */}
+          <div className="grid md:grid-cols-2 gap-10">
 
             {/* CARD 1 */}
-            {/* <div
+            <div
               className="animate-fade bg-white rounded-2xl overflow-hidden shadow-lg group"
             >
               <div className="overflow-hidden">
                 <img
                   src={img1}
                   alt="Fatima Welfare Trust Education"
-                  className="w-full h-180 object-cover transition duration-500 group-hover:scale-110"
+                  className="w-full h-120 object-cover transition duration-500 group-hover:scale-110"
                 />
               </div>
 
@@ -265,17 +265,17 @@ export default function About() {
                   बल्कि समझदार, ज़िम्मेदार और बा-अख़लाक़ इंसान बनाए।
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* CARD 2 */}
-            {/* <div
+            <div
               className="animate-fade bg-white rounded-2xl overflow-hidden shadow-lg group"
             >
               <div className="overflow-hidden">
                 <img
                   src={img2}
                   alt="Fatima Group of Institutions"
-                  className="w-full h-180 object-cover transition duration-500 group-hover:scale-110"
+                  className="w-full h-120 object-cover transition duration-500 group-hover:scale-110"
                 />
               </div>
 
@@ -304,7 +304,7 @@ export default function About() {
 
           </div>
         </div>
-      </section> */}
+      </section>
 
 
       {/* CORE VALUES */}

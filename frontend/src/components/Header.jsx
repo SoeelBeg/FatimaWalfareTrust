@@ -54,12 +54,12 @@ export default function Header() {
 
       {/* MOBILE MENU */}
       {menuOpen && (
-        <div className="text-gray-600 md:hidden absolute top-full left-0 w-full bg-white border-t px-4 py-4 z-40">
-          <a href="/" className="block">Home</a>
-          <a href="/about" className="block">About</a>
-          <a href="/institutions" className="block">Institutions</a>
-          <a href="/gallery" className="block">Gallery</a>
-          <a href="/contact" className="block pb-5">Contact</a>
+        <div className="text-gray-700 md:hidden absolute top-full font-bold left-0 w-full bg-white border-t px-4 py-4 z-40">
+          <a href="/" className="block py-1 hover:text-amber-400">Home</a>
+          <a href="/about" className="block py-1 hover:text-amber-400">About</a>
+          <a href="/institutions" className="block py-1 hover:text-amber-400">Institutions</a>
+          <a href="/gallery" className="block py-1 hover:text-amber-400">Gallery</a>
+          <a href="/contact" className="block pb-5 py-1 hover:text-amber-400">Contact</a>
 
           <a
             href="/donate"

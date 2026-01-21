@@ -179,7 +179,7 @@ export default function AdminGallery() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {images.map(img => (
                     <div key={img.name} className="border p-2 rounded relative">
-                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`} loading="lazy"
+                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`}
                             decoding="async" className="h-40 w-full object-cover" />
                         <p className="font-semibold">{img.title}</p>
                         <p className="text-sm">{img.category}</p>

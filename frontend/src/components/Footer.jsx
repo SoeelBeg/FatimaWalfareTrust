@@ -8,7 +8,8 @@ const quickLinks = [
   { name: "About Us", href: "/about" },
   { name: "Institutions", href: "/Institutions" },
   { name: "Gallery", href: "/Gallery" },
-  { name: "Contact", href: "/Contact" }
+  { name: "Contact", href: "/Contact" },
+  { name: "Donate", href: "/Donate" }
 ];
 
 const institutions = [

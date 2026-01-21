@@ -1,18 +1,67 @@
-import img1 from "../assets/dev1.jpeg"
-import img2 from "../assets/about.jpeg"
-import { motion } from "framer-motion"
+import img1 from "../assets/slide1.jpeg"
+import img2 from "../assets/slide2.jpeg"
+import img3 from "../assets/slide3.jpeg"
+// import img4 from "../assets/slide4.jpeg"
+
+import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react"
 
 export default function IntroSection({ onClose }) {
+
+    // 🔹 Images array
+    const images = [img1, img2, img3, ]
+
+    const [preview, setPreview] = useState(null)
+
+
+    // 🔹 Current slide index
+    const [current, setCurrent] = useState(0)
+
+    // 🔁 Auto slide every 3 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent(prev => (prev + 1) % images.length)
+        }, 6000)
+
+        return () => clearInterval(interval)
+    }, [images.length])
+
+    // ⬅️➡️ Manual controls
+    const prevSlide = () => {
+        setCurrent(prev => (prev - 1 + images.length) % images.length)
+    }
+
+    const nextSlide = () => {
+        setCurrent(prev => (prev + 1) % images.length)
+    }
+
+    // 🎬 Framer Motion animation
+    const slideVariants = {
+        initial: {
+            opacity: 0,
+            scale: 1.05
+        },
+        animate: {
+            opacity: 1,
+            scale: 1
+        },
+        exit: {
+            opacity: 0,
+            scale: 0.95
+        }
+    }
+
     return (
         <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
 
-            {/* White Box */}
+            {/* WHITE POPUP BOX */}
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className=" relative bg-white w-[92%] h-[85vh] md:w-[90%] md:h-[90vh] overflow-y-auto rounded-2xl"
+                className="relative bg-amber-50 w-[92%] h-[85vh] md:w-[70%] md:h-[90vh] overflow-y-auto rounded-2xl"
             >
+
                 {/* ❌ CLOSE BUTTON */}
                 <button
                     onClick={onClose}
@@ -21,103 +70,93 @@ export default function IntroSection({ onClose }) {
                     ✕
                 </button>
 
-                {/* Urdu-Style Hindi Text + Images */}
-                <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-                    <div className="max-w-7xl mx-auto px-6">
+                {/* 🔥 IMAGE SLIDER */}
+                <div className="relative w-full max-w-3xl mx-auto overflow-hidden rounded-2xl shadow-lg mt-10 mb-16">
 
-                        {/* Section Heading */}
-                        <motion.div
-                            initial={{ y: 40, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="text-center mb-14"
-                        >
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-                                तालीम · अख़लाक़ · सशक्त नस्ल
-                            </h2>
-                            <p className="text-gray-600 mt-4 max-w-3xl mx-auto leading-relaxed">
-                                फातिमा वेलफेयर ट्रस्ट का मक़सद सिर्फ इमारतें खड़ी करना या
-                                डिग्रियाँ देना नहीं है, बल्कि एक ऐसी मुकम्मल तालीमी बुनियाद
-                                क़ायम करना है जहाँ इल्म के साथ अख़लाक़, किरदार और इंसानियत
-                                की तरबियत भी की जाए।
-                            </p>
-                        </motion.div>
+                    <AnimatePresence mode="wait">
+                        <motion.img
+                            key={current}
+                            src={images[current]}
+                            alt="Fatima Welfare Trust"
+                            variants={slideVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
+                            transition={{ duration: 0.7, ease: "easeInOut" }}
+                            onClick={() => setPreview(images[current])}
+                            className="w-full h-[320px] sm:h-[420px] md:h-[520px] object-contain bg-gray-200 cursor-zoom-in"
+                        />
+                    </AnimatePresence>
 
-                        {/* Cards */}
-                        <div className="grid md:grid-cols-2 gap-10">
 
-                            {/* CARD 1 */}
+
+                    {/* LEFT ARROW */}
+                    <button
+                        onClick={prevSlide}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 text-white w-10 h-10 rounded-full hover:bg-black"
+                    >
+                        ‹
+                    </button>
+
+                    {/* RIGHT ARROW */}
+                    <button
+                        onClick={nextSlide}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 text-white w-10 h-10 rounded-full hover:bg-black"
+                    >
+                        ›
+                    </button>
+
+                    {/* DOT INDICATORS */}
+                    <div className=" absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {images.map((_, i) => (
                             <div
-                                className=" max-w-xl mx-auto animate-fade bg-white rounded-2xl overflow-hidden shadow-lg group"
-                            >
-                                <div className="overflow-hidden">
-                                    <img
-                                        src={img1}
-                                        alt="Fatima Welfare Trust Education"
-                                        className="w-full h-56 md:h-64 lg:h-72 object-cover transition duration-500 group-hover:scale-110"
-                                    />
-                                </div>
-
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-green-700 mb-4">
-                                        मुस्लिम तालीम के लिए एक इनक़िलाबी क़दम
-                                    </h3>
-
-                                    <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        तालीम का मक़सद सिर्फ एक बैंकिंग निज़ाम नहीं है,
-                                        जहाँ उस्ताद वो लोग हों जिनके पास मालूमात हो
-                                        और वो अंधी तरह से तलबा के ख़ाली ज़हनों में डाल दी जाए।
-                                        <br /><br />
-                                        असल तालीम दरअस्ल तन्क़ीदी शऊर पैदा करती है —
-                                        यानी इंसान को असली दुनिया को समझने,
-                                        सवाल उठाने और हक़ की तलाश करने की सलाहियत देती है।
-                                        <br /><br />
-                                        फातिमा वेलफेयर ट्रस्ट इसी सोच के साथ ऐसी तालीम
-                                        को बढ़ावा देता है जो तलबा को सिर्फ पढ़ा-लिखा नहीं,
-                                        बल्कि समझदार, ज़िम्मेदार और बा-अख़लाक़ इंसान बनाए।
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* CARD 2 */}
-                            <div
-                                className=" max-w-xl mx-auto animate-fade bg-white rounded-2xl overflow-hidden shadow-lg group"
-                            >
-                                <div className="overflow-hidden">
-                                    <img
-                                        src={img2}
-                                        alt="Fatima Group of Institutions"
-                                        className="w-full h-56 md:h-64 lg:h-72 object-cover transition duration-500 group-hover:scale-110"
-                                    />
-                                </div>
-
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-green-700 mb-4">
-                                        एक मक़सद — कई तालीमी इदारे
-                                    </h3>
-
-                                    <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        मुस्लिम बस्तियों को एक नया मुस्तक़बिल देने के लिए
-                                        “फातिमा ग्रुप ऑफ इंस्टीट्यूशन्स” के तहत
-                                        एक मज़बूत तालीमी हब क़ायम करने का इरादा बनाया गया है।
-                                        <br /><br />
-                                        इसमें स्कूल, कॉलेज, यूनिवर्सिटी,
-                                        मेडिकल, नर्सिंग, इंजीनियरिंग,
-                                        टीचर एजुकेशन और मुक़ाबलाती इम्तिहानों की
-                                        कोचिंग तक शामिल है।
-                                        <br /><br />
-                                        हमारा मक़सद एक ऐसी नस्ल तैयार करना है
-                                        जो इल्म, हुनर और अख़लाक़ से लैस हो,
-                                        जो समाज में रहनुमाई कर सके
-                                        और मुल्क-ओ-मिल्लत का नाम रोशन करे।
-                                    </p>
-                                </div>
-                            </div>
-
-                        </div>
+                                key={i}
+                                onClick={() => setCurrent(i)}
+                                className={` w-3 h-3 rounded-full cursor-pointer transition ${current === i ? "bg-white scale-125" : "bg-white/50"
+                                    }`}
+                            />
+                        ))}
                     </div>
-                </section>
+                    {preview && (
+                    <div
+                        className="fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4"
+                        onClick={() => setPreview(null)}
+                    >
+
+                        {/* CLOSE BUTTON */}
+                        <button
+                            className="absolute top-5 right-5 text-white text-3xl"
+                            onClick={() => setPreview(null)}
+                        >
+                            ✕
+                        </button>
+
+                        {/* FULL IMAGE */}
+                        <motion.img
+                            src={preview}
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="max-h-[90vh] max-w-[95vw] rounded-xl shadow-xl"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </div>
+                )}
+
+                </div>
+                
+
+                {/* 📝 CONTENT SECTION (your existing text/cards can stay below) */}
+                <div className="px-6 pb-16 text-center">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+                        तालीम · अख़लाक़ · सशक्त नस्ल
+                    </h2>
+                    <p className="text-gray-600 mt-4 max-w-3xl mx-auto leading-relaxed">
+                        फातिमा वेलफेयर ट्रस्ट का मक़सद सिर्फ इमारतें खड़ी करना नहीं,
+                        बल्कि एक ऐसी मुकम्मल तालीमी बुनियाद क़ायम करना है जहाँ
+                        इल्म के साथ अख़लाक़ और इंसानियत की तरबियत भी हो।
+                    </p>
+                </div>
 
             </motion.div>
         </div>
