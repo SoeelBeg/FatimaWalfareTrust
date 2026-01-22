@@ -98,33 +98,29 @@ export default function AdminGallery() {
         loadImages();
     };
 
-
-    // Delete image
+    // Delete Images -------
     const deleteImage = async (name) => {
-  const token = sessionStorage.getItem("adminToken");
-  if (!confirm("Delete permanently?")) return;
+        const token = sessionStorage.getItem("adminToken");
+        if (!confirm("Delete permanently?")) return;
 
-  // 🔥 URL SAFE (VERY IMPORTANT)
-  const encodedName = encodeURIComponent(name);
+        const res = await fetch(`${API_BASE_URL}/api/delete`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-admin-token": token
+            },
+            body: JSON.stringify({ name })
+        });
 
-  const res = await fetch(
-    `${API_BASE_URL}/api/delete/${encodedName}`,
-    {
-      method: "DELETE",
-      headers: { "x-admin-token": token }
-    }
-  );
+        const data = await res.json();
 
-  const data = await res.json();
+        if (!res.ok) {
+            alert(data.error || "Delete failed");
+            return;
+        }
 
-  if (!res.ok) {
-    alert(data.error || "Delete failed");
-    return;
-  }
-
-  loadImages();
-};
-
+        loadImages();
+    };
 
     // Login screen
     if (!isAdmin) {

@@ -132,15 +132,14 @@ app.get("/api/gallery", async (req, res) => {
 });
 
 // ---------------- DELETE (FIXED) ----------------
-app.delete("/api/delete/:name", adminCheck, async (req, res) => {
+app.post("/api/delete", adminCheck, async (req, res) => {
   try {
-    // 🔥 DECODE URL
-    const filename = decodeURIComponent(req.params.name);
+    const filename = path.basename(req.body.name);
 
     const data = await readData();
-    const updated = data.filter(img => img.name !== filename);
+    const updated = data.filter(i => i.name !== filename);
 
-    if (updated.length === data.length) {
+    if (data.length === updated.length) {
       return res.status(404).json({ error: "Image not found" });
     }
 
@@ -154,7 +153,7 @@ app.delete("/api/delete/:name", adminCheck, async (req, res) => {
     res.json({ success: true });
 
   } catch (err) {
-    console.error("DELETE ERROR:", err);
+    console.error(err);
     res.status(500).json({ error: "Delete failed" });
   }
 });
