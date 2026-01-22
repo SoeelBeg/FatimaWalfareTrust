@@ -101,22 +101,30 @@ export default function AdminGallery() {
 
     // Delete image
     const deleteImage = async (name) => {
-        const token = sessionStorage.getItem("adminToken");
-        if (!confirm("Delete permanently?")) return;
+  const token = sessionStorage.getItem("adminToken");
+  if (!confirm("Delete permanently?")) return;
 
-        const res = await fetch(`${API_BASE_URL}/api/delete/${name}`, {
-            method: "DELETE",
-            headers: { "x-admin-token": token }
-        });
+  // 🔥 URL SAFE (VERY IMPORTANT)
+  const encodedName = encodeURIComponent(name);
 
-        if (!res.ok) {
-            alert("Delete failed");
-            return;
-        }
+  const res = await fetch(
+    `${API_BASE_URL}/api/delete/${encodedName}`,
+    {
+      method: "DELETE",
+      headers: { "x-admin-token": token }
+    }
+  );
 
-        loadImages();
+  const data = await res.json();
 
-    };
+  if (!res.ok) {
+    alert(data.error || "Delete failed");
+    return;
+  }
+
+  loadImages();
+};
+
 
     // Login screen
     if (!isAdmin) {
@@ -179,7 +187,7 @@ export default function AdminGallery() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {images.map(img => (
                     <div key={img.name} className="border p-2 rounded relative">
-                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`}
+                        <img src={img.src.startsWith("http") ? img.src : `${API_BASE_URL}${img.src}`} loading="lazy"
                             decoding="async" className="h-40 w-full object-cover" />
                         <p className="font-semibold">{img.title}</p>
                         <p className="text-sm">{img.category}</p>
